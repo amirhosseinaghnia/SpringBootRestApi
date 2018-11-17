@@ -1,5 +1,6 @@
 package com.tutorial.springboot.ui.controller;
 
+import com.tutorial.springboot.ui.exceptions.UserServiceException;
 import com.tutorial.springboot.ui.model.UpdateUserDetailRequestModel;
 import com.tutorial.springboot.ui.model.UserDetailRequestModel;
 import com.tutorial.springboot.ui.model.UserRes;
@@ -28,6 +29,11 @@ public class UserController {
 
     @GetMapping(path = "/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<UserRes> getUser(@PathVariable String userId) {
+
+//        String userName = null;
+//        int length = userName.length();
+
+        if (true) throw new UserServiceException("UserServiceException thrown");
 
         if (users.containsKey(userId)) {
             return new ResponseEntity<>(users.get(userId), HttpStatus.OK);
@@ -59,6 +65,7 @@ public class UserController {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<UserRes> updateUser(@PathVariable String userId, @Valid @RequestBody UpdateUserDetailRequestModel
             updateUserDetailRequestModel) {
+
 
         UserRes res = users.get(userId);
         res.setFirstName(updateUserDetailRequestModel.getFirstName());
